@@ -43,7 +43,7 @@
     "unrouting": "^0.0.1",
     "vitest": "^2.0.5"
   },
-  "packageManager": "pnpm@9.7.0",
+  "packageManager": "pnpm@9.12.0",
   "dependencies": {
     "globby": "^14.0.2",
     "msw": "^2.4.9",
