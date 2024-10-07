@@ -1,8 +1,6 @@
 # Changelog
 
-
 ## v0.0.1
-
 
 ### 🚀 Enhancements
 
@@ -11,4 +9,3 @@
 ### ❤️ Contributors
 
 - JuanP Barba ([@srbarba](http://github.com/srbarba))
-

@@ -3,7 +3,7 @@
 <!-- automd:badges color=yellow -->
 
 [![npm version](https://img.shields.io/npm/v/msw-fs-router?color=yellow)](https://npmjs.com/package/msw-fs-router)
-[![npm downloads](https://img.shields.io/npm/dm/msw-fs-router?color=yellow)](https://npmjs.com/package/msw-fs-router)
+[![npm downloads](https://img.shields.io/npm/dm/msw-fs-router?color=yellow)](https://npm.chart.dev/msw-fs-router)
 
 <!-- /automd -->
 
@@ -32,6 +32,9 @@ pnpm install msw-fs-router
 
 # bun
 bun install msw-fs-router
+
+# deno
+deno install msw-fs-router
 ```
 
 <!-- /automd -->
@@ -40,7 +43,7 @@ Import:
 
 <!-- automd:jsimport cjs cdn name="msw-fs-router" -->
 
-**ESM** (Node.js, Bun)
+**ESM** (Node.js, Bun, Deno)
 
 ```js
 import {} from "msw-fs-router";
