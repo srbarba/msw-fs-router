@@ -9,6 +9,20 @@ import {
   type PathParams,
 } from "msw";
 
+/**
+ * Define an MSW (Mock Service Worker) handler in a simple and typed way with TypeScript.
+ *
+ * @example
+ * ```typescript
+ * // src/handlers/user.ts
+ * import { defineMswHandler } from 'msw-fs-router';
+ * import { HttpResponse } from 'msw';
+ *
+ * export default defineMswHandler(() => {
+ *   return HttpResponse.json({ id: 'abc-123', firstName: 'John', lastName: 'Doe' })
+ * });
+ * ```
+ */
 export function defineMswHandler<
   Params extends PathParams<keyof Params> = PathParams,
   RequestBodyType extends DefaultBodyType = DefaultBodyType,
@@ -18,9 +32,24 @@ export function defineMswHandler<
 }
 
 const defaultGlobPattern = "**/*.{js,mjs,cjs,ts,mts,cts,tsx,jsx}";
-const defaultSuffixRegex = /\.(delete|get|head|options|patch|post|put)?$/;
-export const defaults = {
+// prettier-ignore
+const defaultSuffixRegex: RegExp = /\.(delete|get|head|options|patch|post|put)?$/;
+
+/**
+ * Default configuration constants for the file scanning process.
+ *
+ * @constant
+ * @type {Object}
+ * @property {string} scanPattern - The glob pattern used to scan files.
+ * @property {RegExp} suffixRegex - The regular expression used to match file suffixes.
+ */
+export const defaults: { scanPattern: string; suffixRegex: RegExp } = {
   scanPattern: defaultGlobPattern,
+  /**
+   * The regular expression used to match file suffixes.
+   * @type {RegExp}
+   * @default /\.(delete|get|head|options|patch|post|put)?$/
+   */
   suffixRegex: defaultSuffixRegex,
 };
 
@@ -36,6 +65,28 @@ type Options = {
   ignore?: string[];
 };
 
+/**
+ * Asynchronously retrieves the MSW (Mock Service Worker) handlers by scanning the specified routes in the filesystem.
+ *
+ * @param {Options} options - The configuration options for scanning and retrieving handlers.
+ * @returns {Promise<HttpHandler[]>} A promise that resolves to an array of HTTP handlers.
+ *
+ * @example
+ * ```typescript
+ * import { setupServer } from "msw/node";
+ * import { getMswHandlers } from 'msw-fs-router';
+ *
+ * const options = {
+ *   baseURL: 'http://localhost:3000',
+ *   scanDirs: ['./src/handlers'],
+ * };
+ *
+ * const handlers = await getMswHandlers(options);
+ * const server = setupServer(...handlers);
+ * server.listen();
+ *
+ * ```
+ */
 export async function getMswHandlers(options: Options) {
   const files = await scanHandlers(options);
   const handlers: HttpHandler[] = await Promise.all(

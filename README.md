@@ -41,24 +41,81 @@ deno install msw-fs-router
 
 Import:
 
-<!-- automd:jsimport cjs cdn name="msw-fs-router" -->
+<!-- automd:jsimport cjs cdn name="msw-fs-router" imports="defineMswHandler,getMswHandlers" -->
 
 **ESM** (Node.js, Bun, Deno)
 
 ```js
-import {} from "msw-fs-router";
+import { defineMswHandler, getMswHandlers } from "msw-fs-router";
 ```
 
 **CommonJS** (Legacy Node.js)
 
 ```js
-const {} = require("msw-fs-router");
+const { defineMswHandler, getMswHandlers } = require("msw-fs-router");
 ```
 
 **CDN** (Deno, Bun and Browsers)
 
 ```js
-import {} from "https://esm.sh/msw-fs-router";
+import { defineMswHandler, getMswHandlers } from "https://esm.sh/msw-fs-router";
+```
+
+<!-- /automd -->
+
+## API
+
+<!-- automd:jsdocs src="src/index" -->
+
+### `defaults`
+
+#### `scanPattern`
+
+- **Type**: `string`
+- **Default**: `"**/*.{js,mjs,cjs,ts,mts,cts,tsx,jsx}"`
+
+#### `suffixRegex`
+
+The regular expression used to match file suffixes.
+
+### `defineMswHandler(resolver)`
+
+Define an MSW (Mock Service Worker) handler in a simple and typed way with TypeScript.
+
+**Example:**
+
+```typescript
+// src/handlers/user.ts
+import { defineMswHandler } from "msw-fs-router";
+import { HttpResponse } from "msw";
+
+export default defineMswHandler(() => {
+  return HttpResponse.json({
+    id: "abc-123",
+    firstName: "John",
+    lastName: "Doe",
+  });
+});
+```
+
+### `getMswHandlers(options)`
+
+Asynchronously retrieves the MSW (Mock Service Worker) handlers by scanning the specified routes in the filesystem.
+
+**Example:**
+
+```typescript
+import { setupServer } from "msw/node";
+import { getMswHandlers } from "msw-fs-router";
+
+const options = {
+  baseURL: "http://localhost:3000",
+  scanDirs: ["./src/handlers"],
+};
+
+const handlers = await getMswHandlers(options);
+const server = setupServer(...handlers);
+server.listen();
 ```
 
 <!-- /automd -->
