@@ -7,6 +7,8 @@
 
 <!-- /automd -->
 
+> **⚠️ Warning: This package is experimental and currently only works with Node.js because it uses `globby`. I am in the process of converting this into a plugin with `unplugin` to make it usable both in Node.js and the browser.**
+
 `msw-fs-router` is a package that provides a file system-based router for mocking server responses using [Mock Service Worker (MSW)](https://mswjs.io/).
 
 It allows you to define your mock routes and responses in a file system structure, making it easier to manage and scale your mock API.
